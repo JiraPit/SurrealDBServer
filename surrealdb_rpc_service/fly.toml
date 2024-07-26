@@ -1,0 +1,54 @@
+# fly.toml app configuration file generated for surrealdb-rpc-service on 2024-07-25T19:18:02+07:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+
+app = 'surrealdb-rpc-service'
+primary_region = 'sin'
+
+[build]
+dockerfile = "Dockerfile"
+
+[[vm]]
+memory = '1gb'
+cpu_kind = 'shared'
+cpus = 1
+
+[mounts]
+source = "data"
+destination = "/data"
+
+
+[env]
+RUST_LOG = "error"
+SURREAL_TARGET = "file://data/main.db"
+
+# gRPC Service 
+[[services]]
+internal_port = 50051
+protocol = "tcp"
+auto_stop_machines = true
+auto_start_machines = true
+min_machines_running = 0
+processes = ["app"]
+
+[[services.ports]]
+handlers = ["tls"]
+port = 50051
+tls_options = { alpn = ["h2"] }
+
+[services.ports.http_options]
+h2_backend = true
+
+# Surreal Service 
+[[services]]
+internal_port = 9000
+protocol = "tcp"
+auto_stop_machines = true
+auto_start_machines = true
+min_machines_running = 0
+processes = ["app"]
+
+[[services.ports]]
+handlers = ["http"]
+port = 9000
+force_https = true

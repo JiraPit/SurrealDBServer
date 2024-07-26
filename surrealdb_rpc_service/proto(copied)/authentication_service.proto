@@ -1,0 +1,32 @@
+syntax = "proto3";
+package authentication_service_proto;
+
+service AuthenticationService {
+  rpc CreateUser (CreateUserRequest) returns (CreateUserResponse);
+  rpc LogIn (LogInRequest) returns (LogInResponse);
+  rpc DeleteUser (DeleteUserRequest) returns (DeleteUserResponse);
+}
+
+// Create user messages
+message CreateUserRequest {
+  string email = 1;
+  string password = 2;
+  string name = 3;
+}
+message CreateUserResponse {}
+
+// Log in messages
+message LogInRequest {
+  string email = 1;
+  string password = 2;
+}
+message LogInResponse {
+  string token = 1;
+}
+
+// Delete user messages
+message DeleteUserRequest {
+  string token = 1;
+}
+message DeleteUserResponse {}
+
