@@ -30,7 +30,6 @@ RUN apt-get update && \
 RUN rm -rf /var/lib/apt/lists/*
 
 RUN curl -sSf https://install.surrealdb.com | sh
-RUN surreal help
 
 WORKDIR /app
 
