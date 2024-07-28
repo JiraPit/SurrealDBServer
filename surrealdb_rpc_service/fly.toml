@@ -33,11 +33,8 @@ processes = ["app"]
 
 [[services.ports]]
 handlers = ["tls"]
-port = 50051
+port = 443
 tls_options = { alpn = ["h2"] }
-
-[services.ports.http_options]
-h2_backend = true
 
 # Surreal Service 
 [[services]]
@@ -49,6 +46,5 @@ min_machines_running = 0
 processes = ["app"]
 
 [[services.ports]]
-handlers = ["http"]
+handlers = ["tls", "http"]
 port = 9000
-force_https = true
