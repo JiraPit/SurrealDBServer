@@ -1,1 +1,1 @@
-# PSNL-SurrealRpcServer
+# SurrealGrpcServer
