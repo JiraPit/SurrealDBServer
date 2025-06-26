@@ -1,1 +1,1 @@
-# SurrealGrpcServer
+# SurrealDBServer
